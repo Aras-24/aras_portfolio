@@ -27,8 +27,8 @@ html {
 [data-theme="light"] {
   --text-primary: #1a1a1a;
   --text-secondary: #050505;
-  --bg-primary: #02020211;
-  --bg-secondary: #0000002d;
+  --bg-primary: #ffffff;
+  --bg-secondary: #00000000;
   --border-color: rgba(0, 0, 0, 0.1);
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-card: #ffffff1e;
@@ -270,7 +270,7 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1005;
+  z-index: 1;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
 }
@@ -504,7 +504,7 @@ nav {
 
 /* About Styles */
 .about {
-  padding: 6rem 2rem;
+  padding: 0rem 2rem;
   color: var(--text-primary);
   display: flex;
   flex-direction: row;
@@ -747,8 +747,11 @@ nav {
 }
 
 .icon-filled {
-  opacity: 0;
+  opacity: 1;
   /* Filled ist initial unsichtbar, wird bei Hover von GSAP eingeblendet */
+}
+.icon-outline{
+  opacity: 0;
 }
 
 .skill-text-area {

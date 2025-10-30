@@ -129,6 +129,7 @@ function setupUIInteractions() {
     const menuToggle = document.querySelector("#menuToggle");
     const mobileMenu = document.querySelector("#mobileMenu");
     
+    
     // Theme Toggle
     const currentTheme = localStorage.getItem("theme") || "dark";
     body.setAttribute("data-theme", currentTheme);
@@ -276,13 +277,8 @@ function initHeroAnimations() {
         .to(".hero-button", { duration: 0.8 }, "<0.1");
 
 
-    // --- Scroll-Gesteuerte Parallax-Effekte (Scrubbing) ---
-    const heroScrollTrigger = {
-        trigger: ".hero",
-        start: "top top", 
-        end: "bottom top", 
-        scrub: true, // Aktiviert Vorwärts- und Rückwärts-Scrolling
-    };
+    
+   
     
     // TEXT-INHALTE kommen von RECHTS
     gsap.fromTo(".hero-content",
@@ -304,8 +300,7 @@ function initHeroAnimations() {
             yPercent: 0,
             opacity: 1,
             y: -20, // Leichter Parallax nach oben (weniger als Text)
-            ease: "none",
-            
+            ease: "none",  
         }
     );
 
@@ -316,9 +311,10 @@ function initHeroAnimations() {
         opacity: 0,
         ease: "none",
         scrollTrigger: { 
-            ...heroScrollTrigger, 
-            end: "bottom 50%", 
-            scrub: 1.5 
+            trigger: ".hero", 
+            start: "top top", 
+            end: "bottom 50%", 
+            scrub: 1.5
         },
     });
 }
@@ -331,16 +327,16 @@ function initAboutAnimations() {
         trigger: ".about",
         start: "top bottom", 
         end: "center top",
-        scrub: -1, 
+        scrub: true, 
     };
 
     gsap.fromTo(".about-content", 
         { x: 550, y: -100, opacity: 0 },
         { 
             x: 0, y: 0, opacity: 1, ease: "power2.out",
+            y: -50, 
             scrollTrigger: { 
                 ...aboutScrollTrigger,
-                y: -50, 
                 scrub: 1.5
             } 
         }
@@ -350,7 +346,7 @@ function initAboutAnimations() {
         { x: -550, y: -100, opacity: 0 },
         { 
             x: 0, y: 0, opacity: 1, ease: "power2.out",
-            y: 0, 
+            y: 50, 
             scrollTrigger: { 
                 ...aboutScrollTrigger, 
                 scrub: 2
@@ -471,7 +467,7 @@ function initSkillAnimations() {
 
         if (skillIcon && iconOutline && iconFilled) {
             hoverTl
-                .to(skillIcon, { scale: 1.5, duration: 0.3, ease: "power2.out" }, 0)
+                .to(skillIcon, { scale: 1.8, duration: 0.3, ease: "power2.out" }, 0)
                 .to(iconOutline, { opacity: 0, duration: 0.2 }, 0)
                 .to(iconFilled, { opacity: 1, duration: 0.2 }, 0);
         }
