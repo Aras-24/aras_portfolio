@@ -1,3 +1,5 @@
+// contactScript.js
+
 // 1. FORMULAR ELEMENTE
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
