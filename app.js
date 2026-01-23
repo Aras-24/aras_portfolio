@@ -346,7 +346,7 @@ function initAboutAnimations() {
         { x: -550, y: -100, opacity: 0 },
         { 
             x: 0, y: 0, opacity: 1, ease: "power2.out",
-            y: 50, 
+            y: 10, 
             scrollTrigger: { 
                 ...aboutScrollTrigger, 
                 scrub: 2

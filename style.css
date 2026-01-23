@@ -528,6 +528,7 @@ nav {
   height: auto;
   display: block;
   border-radius: inherit;
+  transform-origin: center center; 
 }
 
 

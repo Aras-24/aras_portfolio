@@ -1,0 +1,6 @@
+/vendor/
+.env
+contactScript_v1.js
+contactScript_v2.js
+sendMail_v1.php
+sendMail_v2.php
