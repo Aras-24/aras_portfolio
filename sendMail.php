@@ -1,23 +1,15 @@
 <?php
-// ==================================================
 // sendMail.php mit PHPMailer + SMTP + CORS für GitHub Pages
-// ==================================================
-
 require 'vendor/autoload.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
-// ====================================
 // ENV VARIABLES LADEN
-// ====================================
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// ====================================
-// CORS: nur GitHub Pages erlauben
-// ====================================
+// CORS nur GitHub Pages erlauben
 $allowedOrigin = "https://aras-24.github.io";
 if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] === $allowedOrigin) {
     header("Access-Control-Allow-Origin: $allowedOrigin");
@@ -36,9 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// ====================================
+
 // FORMULARDATEN
-// ====================================
 $name    = $_POST['name'] ?? '';
 $email   = $_POST['email'] ?? '';
 $phone   = $_POST['phone'] ?? '';
@@ -54,9 +45,8 @@ if (!$name || !$email || !$message) {
     exit("Bitte füllen Sie Name, E-Mail und Nachricht aus.");
 }
 
-// ====================================
+
 // PHPMailer SMTP
-// ====================================
 $mail = new PHPMailer(true);
 
 try {
