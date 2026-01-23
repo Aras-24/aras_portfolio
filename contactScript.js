@@ -1,48 +1,34 @@
-// contactScript.js
-
-// 1. FORMULAR ELEMENTE
+// Form und Message‑Container
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
-// 2. EVENTLISTENER FÜR FORM SUBMIT
 contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-     // 3. FORM DATA SAMMELN
-     const formData = new FormData(contactForm);
+    const formData = new FormData(contactForm);
+    const actionURL = contactForm.getAttribute("action");
 
-     // 4. FETCH ZU RENDER BACKEND
-     try {
-        // URL zu Render PHP-Backend
-        // Früher: action="sendMail.php" lokal
-        const response = await fetch("https://mein-kontaktformular.onrender.com/sendMail.php", {
+    try {
+        const response = await fetch(actionURL, {
             method: "POST",
-            body: formData
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
         });
 
-        // Prüfen, ob Server ok antwortet
-        if (!response.ok) throw new Error(`Server antwortete mit Status ${response.status}`);
-
-        const result = await response.text();
-
-        // Erfolgsmeldung im Frontend
-        formMessage.style.color = "green";
-        formMessage.textContent = "Danke! Ihre Nachricht wurde gesendet.";
-        contactForm.reset();
-
+        if (response.ok) {
+            formMessage.style.color = "green";
+            formMessage.textContent = "Danke! Deine Nachricht wurde erfolgreich gesendet.";
+            contactForm.reset();
+        } else {
+            // Fehlerantwort von Formspree
+            formMessage.style.color = "red";
+            formMessage.textContent = "Fehler beim Senden. Bitte versuche es später.";
+        }
     } catch (error) {
-        // Fehlerbehandlung
         formMessage.style.color = "red";
-        formMessage.textContent = "Leider konnte die Nachricht nicht gesendet werden. Bitte versuchen Sie es später.";
-        console.error("Fehler beim Senden des Formulars:", error);
+        formMessage.textContent = "Fehler beim Senden. Bitte versuche es später.";
+        console.error("Formspree‑Fehler:", error);
     }
-});
-
-// 5. OPTIONAL: Real-Time Feedback bei Eingaben
-
-const inputs = contactForm.querySelectorAll("input, textarea");
-inputs.forEach(input => {
-    input.addEventListener("input", () => {
-        formMessage.textContent = ""; // Alte Meldungen löschen
-    });
 });
