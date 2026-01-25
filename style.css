@@ -1390,3 +1390,12 @@ textarea.input {
 .hero-3d-model{
   opacity: 0;
 }
+
+
+/* Verhindert den Auto-Zoom bei Fokus auf Handys */
+@media (max-width: 850px) {
+    #user-input, 
+    .email-form input {
+        font-size: 16px !important; /* Minimum 16px verhindert den Zoom-Trigger */
+    }
+}
