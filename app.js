@@ -1,7 +1,4 @@
-// ====================================
 // GLOBALE KONSTANTEN & DRITTPARTEI-SETUP
-// ====================================
-
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
 const ScrollSmoother = window.ScrollSmoother;
@@ -15,10 +12,8 @@ if (gsap && ScrollTrigger && ScrollSmoother) {
     console.error("GSAP oder ein notwendiges Plugin ist nicht geladen.");
 }
 
-// ====================================
-// 0. PARTICLE.JS & HAUPT-INITIALISIERUNG
-// ====================================
 
+// 0. PARTICLE.JS & HAUPT-INITIALISIERUNG
 /**
  * Initialisiert den Particle.js-Hintergrund.
  */
@@ -70,9 +65,8 @@ function initScrollSmoother() {
 }
 
 
-// ====================================
+
 // 1. NAVIGATION & THEME & CURSOR
-// ====================================
 
 /**
  * Verwaltet das Custom Cursor Verhalten.
@@ -171,9 +165,8 @@ function setupUIInteractions() {
     setupCustomCursor(); 
 }
 
-// ====================================
+
 // 2. LOADING ANIMATION & HAUPT-INITIALISIERUNG
-// ====================================
 
 /**
  * Verwaltet die Lade-Animation und startet die Haupt-Animationen nach Abschluss.
@@ -231,9 +224,8 @@ function initialize() {
 document.addEventListener("DOMContentLoaded", initialize);
 
 
-// ====================================
+
 // 3. HAUPT-ANIMATIONEN (GSAP)
-// ====================================
 
 /**
  * Zentrale Funktion zum Starten aller Haupt-GSAP-Animationen.
