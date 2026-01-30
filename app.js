@@ -695,13 +695,27 @@ function initContactFormFocus() {
     });
 }
 
-/**
- * Chatbot
- */
-const chatToggle = document.getElementById("chat-toggle");
-const chatWindow = document.getElementById("chat-window");
+// Chat Widgets per JS Dynamisches Einfügen 
+(function() {
+  const container = document.getElementById("chat-container");
 
+  // Chat Button
+  const fab = document.createElement("div");
+  fab.id = "chat-fab";
+  fab.textContent = "💬";
+  container.appendChild(fab);
 
-chatToggle.addEventListener("click", () => {
-  chatWindow.classList.toggle("open");
-});
+  // Chat Window
+  const chatWindow = document.createElement("div");
+  chatWindow.id = "chat-window";
+  const iframe = document.createElement("iframe");
+  iframe.id = "chat-iframe";
+  iframe.src = "https://ara-chatbot.onrender.com/";
+  chatWindow.appendChild(iframe);
+  container.appendChild(chatWindow);
+
+  // Toggle Open/Close
+  fab.addEventListener("click", () => {
+    chatWindow.classList.toggle("open");
+  });
+})();
