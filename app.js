@@ -694,3 +694,14 @@ function initContactFormFocus() {
         input.addEventListener("blur", blurFunc);
     });
 }
+
+/**
+ * Chatbot
+ */
+const chatToggle = document.getElementById("chat-toggle");
+const chatWindow = document.getElementById("chat-window");
+
+
+chatToggle.addEventListener("click", () => {
+  chatWindow.classList.toggle("open");
+});
