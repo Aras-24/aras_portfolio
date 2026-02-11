@@ -234,6 +234,7 @@ function initAnimations() {
     initHeroAnimations();
     initAboutAnimations();
     initSkillAnimations();
+    initScrollIndicator();
 
     if (window.innerWidth > 768) {
         initProjectHorizontalScroll(); 
@@ -338,7 +339,7 @@ function initAboutAnimations() {
         { x: -550, y: -100, opacity: 0 },
         { 
             x: 0, y: 0, opacity: 1, ease: "power2.out",
-            y: 10, 
+            y: 50, 
             scrollTrigger: { 
                 ...aboutScrollTrigger, 
                 scrub: 2
@@ -714,8 +715,77 @@ function initContactFormFocus() {
   chatWindow.appendChild(iframe);
   container.appendChild(chatWindow);
 
-  // Toggle Open/Close
-  fab.addEventListener("click", () => {
-    chatWindow.classList.toggle("open");
-  });
+  // Hinweis-Sprechblase
+    const hint = document.createElement("div");
+    hint.id = "chat-hint";
+    hint.innerHTML = "Hey! Hast du noch Fragen zu meiner Bewerbung?<br>Ich beantworte sie gern 🙂";
+    container.appendChild(hint);
+
+    // AUTOMATISCHE SCHLEIFE (Ein- und Ausblenden)
+    function toggleHint() {
+        if (chatWindow.classList.contains("open")) return; // Nicht zeigen, wenn Chat offen ist
+
+        // Einblenden & Wackeln
+        hint.classList.add("show");
+        fab.classList.add("attention");
+
+        // Nach 10 Sekunden wieder ausblenden
+        setTimeout(() => {
+            hint.classList.remove("show");
+            fab.classList.remove("attention");
+        }, 10000); 
+    }
+
+    // Erster Start nach 7 Sekunden
+    setTimeout(toggleHint, 7000);
+
+    // Alle 20 Sekunden wiederholen
+    const hintInterval = setInterval(toggleHint, 11000);
+
+  // Interaktion
+    fab.addEventListener("click", () => {
+        chatWindow.classList.toggle("open");
+        hint.classList.remove("show"); // Hinweis bei Klick sofort weg
+        fab.classList.remove("attention"); // Wackeln stoppen
+        clearInterval(hintInterval);
+    });
 })();
+
+
+
+
+
+/**
+ * Initialisiert den Scroll-Indikator (Einblenden & Verschwinden beim Scrollen)
+ */
+function initScrollIndicator() {
+    const indicator = document.querySelector(".scroll-indicator");
+    if (!indicator) return;
+
+    // 1. Einblenden nach dem Laden
+    gsap.to(indicator, {
+        opacity: 1,
+        duration: 1,
+        delay: 2.5, // Erscheint kurz nach den Hero-Texten
+        ease: "power2.out"
+    });
+
+    // 2. Verschwinden beim Scrollen (ScrollTrigger)
+    gsap.to(indicator, {
+        opacity: 0,
+        y: 20,
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "20% top",
+            scrub: true
+        }
+    });
+
+    // 3. Klick-Funktion (Nutzt deinen ScrollSmoother)
+    indicator.addEventListener("click", () => {
+        if (smoother) {
+            smoother.scrollTo("#about", true, "top top");
+        }
+    });
+}
